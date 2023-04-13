@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap');
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Custom scrollbar */
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #3a732f;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #51ba3c;
+}
+
+/* HTML | Rendering optimisation */
+html {
+    text-size-adjust: none;
+    text-rendering: optimizeLegibility;
+    image-rendering: optimizeSpeed;
+    shape-rendering: crispEdges;
+}
+
+body {
+    margin: 0 !important;
+    font-size: 1.8rem !important;
+    margin: auto !important;
+    color: #4a4a4a !important;
+    background-color: #f9f9f9 !important;
+    padding: 0 !important;
+    max-width: inherit"
+
+}
+
+table {
+    background-color: white;
+    border: white solid 10px;
+    font-size: medium;
+    height: 60vh;
+    padding: 35px;
+    margin: 17.5px;
+    border-radius: 5px;
+    position: relative;
+}
+
+form.add {
+    width: fit-content;
+    font-size: medium;
+    padding: 70px;
+}
+
+.dead-center {
+    height: 100svh;
+    display: grid;
+    place-content: center;
+
+    background-color: #ffffff;
+    opacity: 1;
+    height: 100svh;
+    display: grid;
+    place-content: center;
+    background-color: #000000;
+    opacity: 1;
+    background-image: repeating-radial-gradient(circle at 0 0, #ffffff00 0, #000000 10px), repeating-linear-gradient(#3a732f55, #3d852f);
+}
+
+h1{
+    color: white;
+}
+
+a.add-btn {
+    position: absolute;
+    top: -24px;
+    right: 55px;
+    background: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: black;
+    padding: 10px 35px;
+    font-size: medium;
+    text-decoration: none;
+    z-index: 0;
+}
+
+#identification {
+    position: fixed;
+    top: 17.5px;
+    right: 17.5px;
+    z-index: 99;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    background-color: white;
+    padding: 5px 15px;
+    border-radius: 50px;
+
+    border: solid 2px #3a732f;
+}
+
+#identification>a {
+    color: black;
+}
+
+.act-btn{
+    height: fit-content;
+    background: none;
+    border: none;
+}
+
+table td{
+    vertical-align: middle;
+}
