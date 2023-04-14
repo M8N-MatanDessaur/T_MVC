@@ -1,3 +1,8 @@
+<?php ini_set('display_errors', 0);
+require_once './autoloader.php';
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,11 +14,6 @@
     <link rel="stylesheet" href="./assets/styles/style.css">
     <title>Document</title>
 </head>
-
-<?php
-include('./includes/includes.php');
-session_start();
-?>
 
 <body style="max-width: 100%;margin: 0; padding: 0;">
     <?php include('./views/Identification.php') ?>

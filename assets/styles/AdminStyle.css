@@ -123,3 +123,21 @@ a.add-btn {
 table td{
     vertical-align: middle;
 }
+
+.table-style {
+    width: inherit;
+    text-align: left;
+}
+
+.align-end {
+    align-self: flex-end;
+}
+
+.asclient{
+    position: fixed;
+    font-size: 1rem;
+    top: 70px;
+    right: 35px;
+    border-radius: 25px;
+    z-index: 99;
+}

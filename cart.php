@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <title>T&nbsp;&nbsp;|&nbsp;&nbsp;Cart</title>
-    <link rel="stylesheet" href="./assets/styles/style.css">
-</head>
-
-<?php
-ini_set('display_errors', 0);
-include('./includes/includes.php');
+<?php ini_set('display_errors', 0);
+require_once './autoloader.php'; // Load classes
 session_start();
 
 if (isset($_SESSION['user'])) {
-    $cart = new Cart();
+    $cart = new Cart(); // Initialise Cart object
 
     //handling the removal of a product from a user's shopping cart
     if (isset($_POST['remove-from-cart'])) {
@@ -25,8 +15,16 @@ if (isset($_SESSION['user'])) {
 else {
     header('Location: ./login.php');
 }
-
 ?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>T&nbsp;&nbsp;|&nbsp;&nbsp;Cart</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+</head>
 
 <body>
     <?php include('./views/Identification.php') ?>

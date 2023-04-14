@@ -1,3 +1,8 @@
+<?php ini_set('display_errors', 0);
+require_once './autoloader.php'; // Load classes
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,11 +13,6 @@
     <link rel="stylesheet" href="./assets/styles/style.css">
     <title>T&nbsp;&nbsp;|&nbsp;&nbsp;Welcome</title>
 </head>
-
-<?php
-include('./includes/includes.php');
-session_start();
-?>
 
 <body>
     <?php include('./views/Identification.php') ?>

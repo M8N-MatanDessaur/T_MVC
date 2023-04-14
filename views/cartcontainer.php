@@ -9,5 +9,4 @@
         <a href="./shop.php">Continue Shopping</a>
         <a href="checkout.php">Checkout</a>
     </div>
-
 </div>

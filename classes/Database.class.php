@@ -8,23 +8,28 @@ class Database
     private $connection;
 
     public function __construct()
-    {
-        $this->connection = new mysqli($this->host, $this->user, $this->password, $this->database);
+{
+    $this->createConnection();
+    $this->createTables();
+    $this->seedDatabase();
+    $this->seedUsers();
+}
 
-        // Check connection
-        if ($this->connection->connect_error) {
-            die("Connection failed: " . $this->connection->connect_error);
-            if ($this->connection->query("CREATE DATABASE IF NOT EXISTS T") === TRUE) {
-            } else {
-                echo "Error : " . $this->connection->error;
-            }
-            $this->connection->select_db($this->database);
-        }
-        $this->connection->query("CREATE TABLE IF NOT EXISTS teas(_id   int(11) Auto Increment, Name    varchar(25), Description   varchar(100), Price	double(4,4) NULL, Quantity  int(10) NULL,   Image	varchar(100) NULL)");
-        $this->seedDatabase();
-        $this->connection->query("CREATE TABLE IF NOT EXISTS users(_id	int(11) Auto Increment, FullName    varchar(50),    Email	varchar(100),   Password	varchar(100)    Admin	binary(1) NULL)");
-        $this->seedUsers();
+private function createConnection()
+{
+    $this->connection = new mysqli($this->host, $this->user, $this->password, $this->database);
+
+    // Check connection
+    if ($this->connection->connect_error) {
+        throw new Exception("Connection failed: " . $this->connection->connect_error);
     }
+}
+
+private function createTables()
+{
+    $this->connection->query("CREATE TABLE IF NOT EXISTS teas(_id int(11) AUTO_INCREMENT, Name varchar(25), Description varchar(100), Price double(4,4) NULL, Quantity int(10) NULL, Image varchar(100) NULL, PRIMARY KEY (_id))");
+    $this->connection->query("CREATE TABLE IF NOT EXISTS users(_id int(11) AUTO_INCREMENT, FullName varchar(50), Email varchar(100), Password varchar(100), Admin binary(1) NULL, PRIMARY KEY (_id))");
+}
 
     public function getConnection()
     {
@@ -39,11 +44,8 @@ class Database
 
     public function getAllProducts()
     {
-        // Get all products from the database
-        $database = new Database();
-        $connection = $database->getConnection();
         $sql = "SELECT _id, Name, Description, Price, Quantity, Image FROM teas";
-        $result = $connection->query($sql);
+        $result = $this->connection->query($sql);
 
         // Display all products
         if ($result->num_rows > 0) {
