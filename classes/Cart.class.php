@@ -60,6 +60,7 @@ class Cart
             $_SESSION['cart'] = $this->items;
             $_SESSION['cart_obj'] = $this;
         }
+        echo '<script>window.location.href = "./cart.php";</script>';
     }
 
     // Gets the cart total price
