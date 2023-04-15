@@ -16,6 +16,7 @@ class Tea {
         $this->image = $image;
     }
 
+    // Getters
     public function getId() {
         return $this->id;
     }
@@ -39,5 +40,6 @@ class Tea {
     public function getImage() {
         return $this->image;
     }
+    /// End Getters
 }
 ?>

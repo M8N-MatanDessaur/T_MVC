@@ -15,6 +15,7 @@ class Database
         $this->seedUsers();
     }
 
+    // Creates a new instance of mysqli | Creates the connection to the database
     private function createConnection()
     {
         $this->connection = new mysqli($this->host, $this->user, $this->password, $this->database);
@@ -25,28 +26,26 @@ class Database
         }
     }
 
+    // Create Teas and Users tables if exists
     private function createTables()
     {
         $this->connection->query("CREATE TABLE IF NOT EXISTS teas(_id int(11) AUTO_INCREMENT, Name varchar(25), Description varchar(100), Price double(4,4) NULL, Quantity int(10) NULL, Image varchar(100) NULL, PRIMARY KEY (_id))");
         $this->connection->query("CREATE TABLE IF NOT EXISTS users(_id int(11) AUTO_INCREMENT, FullName varchar(50), Email varchar(100), Password varchar(100), Admin binary(1) NULL, PRIMARY KEY (_id))");
     }
 
-    private function sendJsonResponse($code, $data)
-    {
-        http_response_code($code);
-        echo json_encode($data);
-    }
-
+    // Gets the connection 
     public function getConnection()
     {
         return $this->connection;
     }
 
+    // When not using close the connection
     public function __destruct()
     {
         $this->connection->close();
     }
 
+    // Gets all products from database and returns an associative array
     public function getAllProducts()
     {
         $query = $this->connection->prepare("SELECT * FROM teas");
@@ -55,7 +54,7 @@ class Database
         return $result->fetch_all(MYSQLI_ASSOC); // Fetches all rows from the result set as an associative array (with column names as keys)
     }
 
-
+    // Shows products in cards 
     public function showProductsCards()
     {
         $sql = "SELECT _id, Name, Description, Price, Quantity, Image FROM teas";
@@ -72,6 +71,7 @@ class Database
         }
     }
 
+     // Products in cards 
     public function productCard($image, $name, $description, $price, $id)
     {
         echo '<div class="product">';
@@ -89,6 +89,7 @@ class Database
         echo '</div>';
     }
 
+    // Adds the new product to the database
     public function addProductToDatabase()
     {
         if (isset($_POST['add'])) {
@@ -112,10 +113,10 @@ class Database
         }
     }
 
+    // Edits a product from the database
     public function editProduct()
     {
         // updates a record in a database based on a JSON input received via a POST request
-
         $input = json_decode(file_get_contents('php://input'), true); // Gets the raw data from the request body
         // Puts data from sent JSON into variables
         $id = $input['_id'];
@@ -129,6 +130,7 @@ class Database
         $query->execute();
     }
 
+     // Deletes a product from the database
     public function deleteProduct($id)
     {
         $query = $this->connection->prepare("DELETE FROM teas WHERE _id = ?");
@@ -138,7 +140,7 @@ class Database
     }
 
 
-
+    // Seed tables
     public function seedDatabase()
     {
 
@@ -250,4 +252,5 @@ class Database
             }
         }
     }
+    /// End Seed tables
 }

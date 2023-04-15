@@ -15,6 +15,7 @@ class User
         $this->password = $password;
     }
 
+    // Getters
     public function getId()
     {
         return $this->id;
@@ -34,12 +35,14 @@ class User
     {
         return $this->password;
     }
+    /// EndGetters
 
+    // Verify if user is admin
     public function verifyAdmin(){
         return $this->_isAdmin;
     }
 
-
+    // Find user by Email + Password
     public static function findByEmailAndPassword($email, $password)
     {
         $db = new Database();
@@ -67,6 +70,7 @@ class User
         return $user;
     }
 
+    // Saves user in database
     public function save()
     {
         $db = new Database();

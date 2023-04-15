@@ -4,6 +4,7 @@ class Cart
     private $items;
     private $total;
 
+    // If not exists, creates a cart in session, else get the added items
     public function __construct()
     {
         if (isset($_SESSION['cart'])) {
@@ -13,13 +14,13 @@ class Cart
         }
     }
 
+    // Gets all cart items
     public function getItems()
     {
         return $this->items;
     }
 
-
-
+    // Adds product to cart (+ quantity)
     public function addToCart($product_id, $quantity = 1)
     {
         // Check if product already exists in cart
@@ -51,6 +52,17 @@ class Cart
         echo '<script>window.location.href = "./shop.php";</script>';
     }
 
+    // Removes product from cart
+    public function removeFromCart($product_id)
+    {
+        if (isset($this->items[$product_id])) {
+            unset($this->items[$product_id]);
+            $_SESSION['cart'] = $this->items;
+            $_SESSION['cart_obj'] = $this;
+        }
+    }
+
+    // Gets the cart total price
     public function getTotal()
     {
         $this->total = 0;
@@ -60,18 +72,9 @@ class Cart
         return $this->total;
     }
 
-    // Calculates subtotal
+    // Calculates the product subtotal (prod*qte)
     function getProductSubtotal($price, $quantity)
     {
         return $price * $quantity;
-    }
-
-    public function removeFromCart($product_id)
-    {
-        if (isset($this->items[$product_id])) {
-            unset($this->items[$product_id]);
-            $_SESSION['cart'] = $this->items;
-            $_SESSION['cart_obj'] = $this;
-        }
     }
 }
