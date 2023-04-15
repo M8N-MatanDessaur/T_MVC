@@ -6,15 +6,6 @@ session_start();
 if (!isset($_SESSION['user']) || !$_SESSION['user']->verifyAdmin()) {
     header('Location: ./login.php');
 }
-
-// Fetch product data from database
-$db = new Database();
-$connection = $db->getConnection();
-
-$query = $connection->prepare("SELECT * FROM teas");
-$query->execute();
-$result = $query->get_result();
-$products = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>

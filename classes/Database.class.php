@@ -8,28 +8,34 @@ class Database
     private $connection;
 
     public function __construct()
-{
-    $this->createConnection();
-    $this->createTables();
-    $this->seedDatabase();
-    $this->seedUsers();
-}
-
-private function createConnection()
-{
-    $this->connection = new mysqli($this->host, $this->user, $this->password, $this->database);
-
-    // Check connection
-    if ($this->connection->connect_error) {
-        throw new Exception("Connection failed: " . $this->connection->connect_error);
+    {
+        $this->createConnection();
+        $this->createTables();
+        $this->seedDatabase();
+        $this->seedUsers();
     }
-}
 
-private function createTables()
-{
-    $this->connection->query("CREATE TABLE IF NOT EXISTS teas(_id int(11) AUTO_INCREMENT, Name varchar(25), Description varchar(100), Price double(4,4) NULL, Quantity int(10) NULL, Image varchar(100) NULL, PRIMARY KEY (_id))");
-    $this->connection->query("CREATE TABLE IF NOT EXISTS users(_id int(11) AUTO_INCREMENT, FullName varchar(50), Email varchar(100), Password varchar(100), Admin binary(1) NULL, PRIMARY KEY (_id))");
-}
+    private function createConnection()
+    {
+        $this->connection = new mysqli($this->host, $this->user, $this->password, $this->database);
+
+        // Check connection
+        if ($this->connection->connect_error) {
+            throw new Exception("Connection failed: " . $this->connection->connect_error);
+        }
+    }
+
+    private function createTables()
+    {
+        $this->connection->query("CREATE TABLE IF NOT EXISTS teas(_id int(11) AUTO_INCREMENT, Name varchar(25), Description varchar(100), Price double(4,4) NULL, Quantity int(10) NULL, Image varchar(100) NULL, PRIMARY KEY (_id))");
+        $this->connection->query("CREATE TABLE IF NOT EXISTS users(_id int(11) AUTO_INCREMENT, FullName varchar(50), Email varchar(100), Password varchar(100), Admin binary(1) NULL, PRIMARY KEY (_id))");
+    }
+
+    private function sendJsonResponse($code, $data)
+    {
+        http_response_code($code);
+        echo json_encode($data);
+    }
 
     public function getConnection()
     {
@@ -41,8 +47,16 @@ private function createTables()
         $this->connection->close();
     }
 
-
     public function getAllProducts()
+    {
+        $query = $this->connection->prepare("SELECT * FROM teas");
+        $query->execute();
+        $result = $query->get_result(); // Stores the result in the $result variable.
+        return $result->fetch_all(MYSQLI_ASSOC); // Fetches all rows from the result set as an associative array (with column names as keys)
+    }
+
+
+    public function showProductsCards()
     {
         $sql = "SELECT _id, Name, Description, Price, Quantity, Image FROM teas";
         $result = $this->connection->query($sql);
@@ -51,12 +65,79 @@ private function createTables()
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $product = new Tea($row['_id'], $row['Name'], $row['Description'], $row['Price'], $row['Quantity'], $row['Image']);
-                showProductCard($product->getImage(), $product->getName(), $product->getDescription(), $product->getPrice(), $product->getId());
+                $this->productCard($product->getImage(), $product->getName(), $product->getDescription(), $product->getPrice(), $product->getId());
             }
         } else {
             echo 'No products found.';
         }
     }
+
+    public function productCard($image, $name, $description, $price, $id)
+    {
+        echo '<div class="product">';
+        echo '<img src="assets/images/' . $image . '" alt="' . $name . '" height="150">';
+        echo '<h3>' . $name . '</h3>';
+        echo '<p class="desc">' . $description . '</p>';
+        echo '<p class="price">$' . number_format($price, 4) . '/g</p>';
+        echo '<form method="post">';
+        echo '<input type="hidden" name="product-id" value="' . $id . '">';
+        echo '<div class="inputGroup">';
+        echo '<select class="qte" name="quantity" ><option value="100">100g</option><option value="500">500g</option><option value="1000">1000g</option></select>';
+        echo '</div>';
+        echo '<button type="submit" name="add-to-cart"><svg width="45" height="45" fill="#3a732f" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.25c-5.376 0-9.75 4.374-9.75 9.75s4.374 9.75 9.75 9.75 9.75-4.374 9.75-9.75S17.376 2.25 12 2.25Zm4.5 10.5h-3.75v3.75h-1.5v-3.75H7.5v-1.5h3.75V7.5h1.5v3.75h3.75v1.5Z"></path></svg></button>';
+        echo '</form>';
+        echo '</div>';
+    }
+
+    public function addProductToDatabase()
+    {
+        if (isset($_POST['add'])) {
+            $name = $_POST['Name'];
+            $price = $_POST['Price'];
+            $quantity = $_POST['Quantity'];
+            $Description = $_POST['Description'];
+            $image = $_FILES['Image'];
+            $imageName = basename($image['name']);
+            $imagePath = '../assets/images/' . $imageName;
+
+            if (move_uploaded_file($image['tmp_name'], $imagePath)) {
+                $query = $this->connection->prepare("INSERT INTO teas (Name, Description, Price, Quantity, Image) VALUES (?, ?, ?, ?, ?)");
+                $query->bind_param("ssdis", $name, $Description,  $price, $quantity, $imageName);
+                $query->execute();
+
+                echo '<script>window.location.href = "../admin.php";</script>';
+            } else {
+                echo "Failed to upload image.";
+            }
+        }
+    }
+
+    public function editProduct()
+    {
+        // updates a record in a database based on a JSON input received via a POST request
+
+        $input = json_decode(file_get_contents('php://input'), true); // Gets the raw data from the request body
+        // Puts data from sent JSON into variables
+        $id = $input['_id'];
+        $name = $input['Name'];
+        $description = $input['Description'];
+        $price = $input['Price'];
+        $quantity = $input['Quantity'];
+
+        $query = $this->connection->prepare("UPDATE teas SET Name = ?, Description = ?, Price = ?, Quantity = ? WHERE _id = ?");
+        $query->bind_param("ssdis", $name, $description, $price, $quantity, $id);
+        $query->execute();
+    }
+
+    public function deleteProduct($id)
+    {
+        $query = $this->connection->prepare("DELETE FROM teas WHERE _id = ?");
+        $query->bind_param("i", $id);
+        $query->execute();
+        echo '<script>window.location.href = "../admin.php";</script>';
+    }
+
+
 
     public function seedDatabase()
     {

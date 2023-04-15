@@ -1,20 +1,6 @@
 <?php ini_set('display_errors', 0);
-require_once './autoloader.php'; // Load classes
+require_once './autoloader.php';  // Load classes automatically
 session_start();
-
-if (isset($_SESSION['user'])) {
-    $cart = new Cart(); // Initialise Cart object
-
-    //handling the removal of a product from a user's shopping cart
-    if (isset($_POST['remove-from-cart'])) {
-        $product_id = $_POST['product_id'];
-        $cart->removeFromCart($product_id);
-    }
-}
-// if user isn't connected, send user to login
-else {
-    header('Location: ./login.php');
-}
 ?>
 
 <!DOCTYPE html>

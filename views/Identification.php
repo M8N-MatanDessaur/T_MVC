@@ -1,13 +1,10 @@
-<?php
-require_once './classes/User.class.php';
-?>
 <div id="identification">
 <?php
 if (isset($_SESSION['user'])) {
-    // $_SESSION['user'] is set, so you can access its properties
+    // Show's user FullName if connected
     echo "<h2 style='color:#3a732f; font-size:1.2rem; margin: 0;'>" . $_SESSION['user']->getFullName() . "</h2>";
 } else {
-    // $_SESSION['user'] is not set, so you can display an error message or redirect the user
+    // Show's nothing if not connected
     echo "";
 }
 ?>

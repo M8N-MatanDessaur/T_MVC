@@ -1,3 +1,10 @@
+<?php
+// Fetch product data from database
+$db = new Database();
+$products = $db->getAllProducts()
+?>
+
+
 <table style="background-color: white; border: white solid 10px;">
     <thead>
         <tr>
@@ -13,7 +20,7 @@
             <tr>
                 <td><input id="<?= $product['_id'] . 'Name' ?>" type="text" value="<?= $product['Name'] ?>"></td>
                 <td><textarea id="<?= $product['_id'] . 'Description' ?>" name="" id="Description" style="width: 300px; height: 100px; resize:none"><?= $product['Description'] ?></textarea></td>
-                <td><input id="<?= $product['_id'] . 'Price' ?>" type="number"  min="0" step=".0001" name="Price" value="<?= $product['Price'] ?>"></td>
+                <td><input id="<?= $product['_id'] . 'Price' ?>" type="number" min="0" step=".0001" name="Price" value="<?= $product['Price'] ?>"></td>
                 <td><input id="<?= $product['_id'] . 'Quantity' ?>" type="number" name="Quantity" value="<?= $product['Quantity'] ?>"></td>
                 <td><img id="<?= $product['_id'] . 'Image' ?>" style="height: 90px !important; max-width:200px !important;" src="assets/images/<?= $product['Image'] ?>"></td>
                 <td>

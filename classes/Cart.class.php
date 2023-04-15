@@ -48,16 +48,23 @@ class Cart
 
         // Save updated cart to session
         $_SESSION['cart'] = $this->items;
+        echo '<script>window.location.href = "./shop.php";</script>';
     }
 
     public function getTotal()
-{
-    $this->total = 0;
-    foreach ($this->items as $item) {
-        $this->total += $item['Price'] * $item['Quantity'];
+    {
+        $this->total = 0;
+        foreach ($this->items as $item) {
+            $this->total += $item['Price'] * $item['Quantity'];
+        }
+        return $this->total;
     }
-    return $this->total;
-}
+
+    // Calculates subtotal
+    function getProductSubtotal($price, $quantity)
+    {
+        return $price * $quantity;
+    }
 
     public function removeFromCart($product_id)
     {
@@ -68,4 +75,3 @@ class Cart
         }
     }
 }
-?>

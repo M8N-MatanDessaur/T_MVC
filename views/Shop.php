@@ -1,7 +1,19 @@
 <main class="main-shop">
     <?php
+    require_once("./classes/Database.class.php");
+
+    // if client is connected, create a cart object in session
+    if (isset($_SESSION['user'])) {
+        $cart = $_SESSION['cart'];
+    }
+    // else bring user to login page
+    else {
+        header('Location: ./login.php');
+    }
+
     // Gets the instance of cart
-    function getCart() {
+    function getCart()
+    {
         if (!isset($_SESSION['cart_obj']) || !($_SESSION['cart_obj'] instanceof Cart)) {
             $_SESSION['cart_obj'] = new Cart();
         }
@@ -9,7 +21,8 @@
     }
 
     // Handles add to cart method
-    function handleFormSubmission(Cart $cart) {
+    function handleFormSubmission(Cart $cart)
+    {
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['add-to-cart'])) {
             $productId = filter_input(INPUT_POST, 'product-id', FILTER_SANITIZE_NUMBER_INT);
             $quantity = filter_input(INPUT_POST, 'quantity', FILTER_SANITIZE_NUMBER_INT);
@@ -20,10 +33,10 @@
         }
     }
 
-    $cart = getCart();
-    handleFormSubmission($cart);
+    $db = new Database();
+    $db->showProductsCards(); // Gets all the intianciated cart items
 
-    $database = new Database();
-    $database->getAllProducts(); // Gets all the intianciated cart items
+    $cart = getCart(); // Gets the current user's cart
+    handleFormSubmission($cart); // Handles the delete product from cart form submission
     ?>
 </main>

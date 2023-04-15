@@ -1,5 +1,5 @@
 <?php ini_set('display_errors', 0);
-require_once './autoloader.php'; // Load classes
+require_once './autoloader.php'; // Load classes automatically
 session_start();
 ?>
 

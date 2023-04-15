@@ -1,18 +1,6 @@
 <?php ini_set('display_errors', 0);
-require_once './autoloader.php'; // Load classes
-require_once("./views/productcard.php");
-
+require_once './autoloader.php'; // Load classes automatically
 session_start();
-session_regenerate_id(); // Regenrate ID of the session 
-
-// if client is connected, create a cart object in session
-if (isset($_SESSION['user'])) {
-    $cart = $_SESSION['cart'];
-}
-// else bring user to login page
-else {
-    header('Location: ./login.php');
-}
 ?>
 
 <!DOCTYPE html>

@@ -1,5 +1,5 @@
 <!-- 
-    **  Handles signup user and create user 
+    **  Handles signup user and create user in database
  -->
 
 <?php ini_set('display_errors', 0);
