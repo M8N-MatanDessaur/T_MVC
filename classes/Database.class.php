@@ -26,7 +26,7 @@ class Database
         }
     }
 
-    // Create Teas and Users tables if exists
+    // Create Teas and Users tables if not exists
     private function createTables()
     {
         $this->connection->query("CREATE TABLE IF NOT EXISTS teas(_id int(11) AUTO_INCREMENT, Name varchar(25), Description varchar(100), Price double(4,4) NULL, Quantity int(10) NULL, Image varchar(100) NULL, PRIMARY KEY (_id))");
