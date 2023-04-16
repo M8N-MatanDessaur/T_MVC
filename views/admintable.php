@@ -4,7 +4,6 @@ $db = new Database();
 $products = $db->getAllProducts()
 ?>
 
-
 <table style="background-color: white; border: white solid 10px;">
     <thead>
         <tr>

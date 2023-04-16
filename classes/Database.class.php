@@ -54,7 +54,19 @@ class Database
         return $result->fetch_all(MYSQLI_ASSOC); // Fetches all rows from the result set as an associative array (with column names as keys)
     }
 
-    // Shows products in cards 
+    // Gets the scoped product by id from database and returns it
+    public function getProductById($product_id)
+    {
+        $query = $this->connection->prepare("SELECT * FROM teas WHERE _id = ?");
+        $query->bind_param("i", $product_id);
+        $query->execute();
+        $result = $query->get_result();
+
+        return $result;
+    }
+
+
+    // Shows products as productCards 
     public function showProductsCards()
     {
         $sql = "SELECT _id, Name, Description, Price, Quantity, Image FROM teas";
@@ -71,7 +83,7 @@ class Database
         }
     }
 
-     // Products in cards 
+    // productsCards 
     public function productCard($image, $name, $description, $price, $id)
     {
         echo '<div class="product">';
@@ -130,7 +142,7 @@ class Database
         $query->execute();
     }
 
-     // Deletes a product from the database
+    // Deletes a product from the database
     public function deleteProduct($id)
     {
         $query = $this->connection->prepare("DELETE FROM teas WHERE _id = ?");

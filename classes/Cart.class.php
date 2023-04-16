@@ -4,7 +4,7 @@ class Cart
     private $items;
     private $total;
 
-    // If not exists, creates a cart in session, else get the added items
+    // if ['cart'] exists in Session,  items array = the cart products, else create items array
     public function __construct()
     {
         if (isset($_SESSION['cart'])) {
@@ -27,16 +27,11 @@ class Cart
         if (isset($this->items[$product_id])) {
             $this->items[$product_id]['Quantity'] += $quantity;
         } else {
-            // Get product details from database
+            // Get product & details from database
             $db = new Database();
-            $connection = $db->getConnection();
-
-            $query = $connection->prepare("SELECT * FROM teas WHERE _id = ?");
-            $query->bind_param("i", $product_id);
-            $query->execute();
-            $result = $query->get_result();
-
-            // Add product to cart
+            $result = $db->getProductById($product_id);
+            
+            // Add this product to items array
             if ($result->num_rows == 1) {
                 $row = $result->fetch_assoc();
                 $this->items[$product_id] = [
@@ -47,7 +42,7 @@ class Cart
             }
         }
 
-        // Save updated cart to session
+        // Save updated items array to ['cart'] on Session
         $_SESSION['cart'] = $this->items;
         echo '<script>window.location.href = "./shop.php";</script>';
     }

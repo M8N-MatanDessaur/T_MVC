@@ -2,7 +2,8 @@
     **  Handles login user
  -->
 
-<?php ini_set('display_errors', 0);
+<?php 
+ini_set('display_errors', 0);
 require_once('../classes/Database.class.php');
 require_once('../classes/Tea.class.php');
 require_once('../classes/User.class.php');
@@ -14,7 +15,7 @@ session_start();
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-// Search for user in database
+// Search for user in database usin static method
 $user = User::findByEmailAndPassword($email, $password);
 
 if ($user == null) {
