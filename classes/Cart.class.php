@@ -10,7 +10,7 @@ class Cart
         if (isset($_SESSION['cart'])) {
             $this->items = $_SESSION['cart'];
         } else {
-            $this->items = [];
+            $this->items = array();
         }
     }
 
@@ -30,7 +30,7 @@ class Cart
             // Get product & details from database
             $db = new Database();
             $result = $db->getProductById($product_id);
-            
+
             // Add this product to items array
             if ($result->num_rows == 1) {
                 $row = $result->fetch_assoc();
@@ -52,8 +52,8 @@ class Cart
     {
         if (isset($this->items[$product_id])) {
             unset($this->items[$product_id]);
-            $_SESSION['cart'] = $this->items;
-            $_SESSION['cart_obj'] = $this;
+            $_SESSION['cart'] = $this->items; //Cart Items
+            $_SESSION['cart_obj'] = $this;    //Current Cart Object
         }
         echo '<script>window.location.href = "./cart.php";</script>';
     }
@@ -63,7 +63,9 @@ class Cart
     {
         $this->total = 0;
         foreach ($this->items as $item) {
-            $this->total += $item['Price'] * $item['Quantity'];
+            if (isset($item['Quantity'])) {
+                $this->total += $item['Price'] * $item['Quantity'];
+            }
         }
         return $this->total;
     }

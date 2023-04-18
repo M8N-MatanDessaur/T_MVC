@@ -1,8 +1,6 @@
-<div style="    width: fit-content;
-    height: 100svh;
-    overflow: scroll;">
+<main class="main-abs">
     <main style="font-family: 'Montserrat', sans-serif;">
-        <h1 style="font-family: 'Montserrat', sans-serif;">Welcome to <span class="sfont">T</span></h1>
+        <h1 style="font-family: 'Montserrat', sans-serif; font-size:2.5rem;">Welcome to <span class="sfont" style="color:#3a732f;">T</span></h1>
         <br><br>
         <section style="font-family: 'Montserrat', sans-serif;">
             <p>Your one-stop destination for an exquisite collection of teas from around the world. Our passion for tea has inspired us to create a unique platform where tea enthusiasts and connoisseurs can find the perfect blend to suit their palate. We take pride in sourcing the finest teas, ensuring that every cup you brew brings you an exceptional experience.</p>
@@ -35,4 +33,4 @@
         </section>
         <br><br><br>
     </main>
-</div>
+</main>

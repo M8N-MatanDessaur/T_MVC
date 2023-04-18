@@ -3,7 +3,7 @@ ini_set('display_errors', 0);
 require_once './autoloader.php'; // Load classes automatically
 session_start();
 
-// Check if user connected is an Admin
+// Check if connected user is not admin
 if (!isset($_SESSION['user']) || !$_SESSION['user']->verifyAdmin()) {
     header('Location: ./login.php');
 }

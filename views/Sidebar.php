@@ -8,7 +8,7 @@
                 <a href="cart.php" style="position:relative">My Cart
                     <span class="cart-items-count">
                         <?php 
-                        if(isset($_SESSION["cart"])){
+                        if(isset($_SESSION["cart"]) && is_array($_SESSION["cart"])){
                             echo count($_SESSION["cart"]);
                         }
                         else{

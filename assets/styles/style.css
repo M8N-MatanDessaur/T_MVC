@@ -166,6 +166,11 @@ main.main-shop {
     place-items: center;
 }
 
+main.main-abs{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
 .product {
     position: relative;
     height: 400px;
@@ -344,6 +349,7 @@ button.del {
 
     main{
         width: 100%;
+        padding: 130px 30px;
     }
 
     main.main-home>blockquote{
@@ -366,6 +372,10 @@ button.del {
         width: 15px;
         height: 15px;
         font-size: 0.6rem;
+      }
+
+      .cart{
+        width: auto;
       }
 }
 

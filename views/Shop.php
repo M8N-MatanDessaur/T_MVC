@@ -1,7 +1,5 @@
 <main class="main-shop">
     <?php
-    require_once("./classes/Database.class.php");
-
     // if client is connected, create a cart object in session
     if (isset($_SESSION['user'])) {
         $cart = $_SESSION['cart'];

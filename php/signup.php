@@ -4,11 +4,7 @@
 
 <?php 
 ini_set('display_errors', 0);
-require_once('../classes/Database.class.php');
-require_once('../classes/Tea.class.php');
-require_once('../classes/User.class.php');
-require_once('../classes/AdminUser.class.php');
-require_once('../classes/Cart.class.php');
+require_once '../autoloader.php'; // Load classes automatically
 
 // htmlspecialchars :   Prevents cross-site scripting (XSS) attacks 
 //                      by converting special characters to their HTML entities

@@ -2,6 +2,10 @@
 ini_set('display_errors', 0);
 require_once './autoloader.php'; // Load classes automatically
 session_start();
+
+//CONSOLE.LOG SESSION
+echo "<script>console.log(" . json_encode(var_export($_SESSION["cart_obj"], true)) . ");</script>";
+echo "<script>console.log(" . json_encode(var_export($_SESSION["user"], true)) . ");</script>";
 ?>
 
 <!DOCTYPE html>
