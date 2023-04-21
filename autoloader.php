@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 
 spl_autoload_register(function ($class) {
     // Define the base directory for your class files
-    $baseDir = __DIR__ . '/classes/';
+    $baseDir = __DIR__ . '/Model/';
 
     // Append the base directory and the .class.php extension to the class name
     $classFile = $baseDir . $class . '.class.php';

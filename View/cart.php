@@ -1,6 +1,6 @@
 <?php 
 ini_set('display_errors', 0);
-require_once './autoloader.php'; // Load classes automatically
+require_once '../autoloader.php'; // Load classes automatically
 session_start();
 
 //CONSOLE.LOG SESSION
@@ -14,14 +14,14 @@ echo "<script>console.log(" . json_encode(var_export($_SESSION["user"], true)) .
 <head>
     <meta charset="UTF-8">
     <title>T&nbsp;&nbsp;|&nbsp;&nbsp;Cart</title>
-    <link rel="stylesheet" href="./assets/styles/style.css">
+    <link rel="stylesheet" href="../assets/styles/style.css">
 </head>
 
 <body>
-    <?php include('./views/Identification.php') ?>
+    <?php include('./PartialViews/Identification.php') ?>
     <section class="page-layout">
-        <?php include('./views/Sidebar.php') ?>
-        <?php include('./views/cartcontainer.php') ?>
+        <?php include('./PartialViews/Sidebar.php') ?>
+        <?php include('./PartialViews/cartcontainer.php') ?>
     </section>
 </body>
 

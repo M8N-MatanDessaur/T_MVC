@@ -29,7 +29,7 @@ $products = $db->getAllProducts()
                                 <path d="m19.4 7.337-2.74-2.74a2 2 0 0 0-2.66-.07l-9 9a2 2 0 0 0-.57 1.21L4 18.907a1 1 0 0 0 1 1.09h.09l4.17-.38a2 2 0 0 0 1.21-.57l9-9a1.92 1.92 0 0 0-.07-2.71ZM9.08 17.617l-3 .28.27-3L12 9.317l2.7 2.7-5.62 5.6Zm6.92-6.94-2.68-2.68 1.95-2L18 8.727l-2 1.95Z"></path>
                             </svg>
                         </button>
-                        <form method="post" action="../t/php/deleteProduct.php">
+                        <form method="post" action="../Controller/deleteProduct.php">
                             <input type="hidden" name="id" value="<?= $product['_id'] ?>">
                             <button type="submit" name="delete" class="act-btn">
                                 <svg width="25" height="25" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

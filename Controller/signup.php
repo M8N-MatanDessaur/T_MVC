@@ -29,6 +29,6 @@ if (isset($_POST['isAdmin'])) {
 }
 
 // Redirect to login page
-header('Location: ../login.php');
+header('Location: ../View/login.php');
 exit;
 ?>

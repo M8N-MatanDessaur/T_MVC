@@ -1,4 +1,4 @@
-<form id="addProd" class="add" method="post" action="../t/php/addProduct.php" enctype="multipart/form-data">
+<form id="addProd" class="add" method="post" action="../Controller/addProduct.php" enctype="multipart/form-data">
     <h2>Add Product</h2>
     <label for="name">Name:</label>
     <input type="text" name="Name" required>

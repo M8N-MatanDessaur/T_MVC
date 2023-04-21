@@ -59,6 +59,10 @@ section.page-layout {
     border: solid 2px #3a732f;
 }
 
+#identification:empty{
+    padding: 0;
+}
+
 #identification>a {
     color: black;
 }

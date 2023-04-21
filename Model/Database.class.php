@@ -111,14 +111,14 @@ class Database
             $Description = $_POST['Description'];
             $image = $_FILES['Image'];
             $imageName = basename($image['name']);
-            $imagePath = '../assets/images/' . $imageName;
+            $imagePath = '../View/assets/images' . $imageName;
 
             if (move_uploaded_file($image['tmp_name'], $imagePath)) {
                 $query = $this->connection->prepare("INSERT INTO teas (Name, Description, Price, Quantity, Image) VALUES (?, ?, ?, ?, ?)");
                 $query->bind_param("ssdis", $name, $Description,  $price, $quantity, $imageName);
                 $query->execute();
 
-                echo '<script>window.location.href = "../admin.php";</script>';
+                echo '<script>window.location.href = "../View/admin.php";</script>';
             } else {
                 echo "Failed to upload image.";
             }
@@ -148,7 +148,7 @@ class Database
         $query = $this->connection->prepare("DELETE FROM teas WHERE _id = ?");
         $query->bind_param("i", $id);
         $query->execute();
-        echo '<script>window.location.href = "../admin.php";</script>';
+        echo '<script>window.location.href = "../View/admin.php";</script>';
     }
 
 

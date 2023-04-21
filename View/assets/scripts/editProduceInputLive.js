@@ -6,7 +6,7 @@ async function editProduct(id) {
     const quantity = document.getElementById(id + 'Quantity').value;
 
     // Send the data to the server as JSON
-    const response = await fetch('./php/edit_product.php', {
+    const response = await fetch('../Controller/edit_product.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -24,6 +24,6 @@ async function editProduct(id) {
     if (response.ok) {
         location.reload();
     } else {
-        alert('Failed to update product.');
+        //alert('Failed to update product.');
     }
 }

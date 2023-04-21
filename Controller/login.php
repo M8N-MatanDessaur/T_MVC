@@ -15,13 +15,13 @@ $password = $_POST['password'];
 $user = User::findByEmailAndPassword($email, $password);
 
 if ($user == null) {
-    header('Location: ../login');
+    header('Location: ../View/login.php');
 } else {
     if($user->verifyAdmin()){
         session_start();
         $_SESSION['user'] = $user;
         $_SESSION['cart'] =  new Cart();
-        header('Location:../admin.php');
+        header('Location:../View./admin.php');
         exit;
     }
     else{
@@ -30,7 +30,7 @@ if ($user == null) {
     $_SESSION['cart'] =  new Cart();
 
     // Redirect to shop
-    header('Location:../shop.php');
+    header('Location:../View/shop.php');
     exit;
     }
 }

@@ -2,7 +2,7 @@
  function showProductCard($image, $name, $description, $price, $id)
  {
     echo '<div class="product">';
-        echo '<img src="assets/images/' . $image . '" alt="' . $name . '" height="150">';
+        echo '<img src="../../assets/images/' . $image . '" alt="' . $name . '" height="150">';
         echo '<h3>' . $name . '</h3>';
         echo '<p class="desc">' . $description . '</p>';
         echo '<p class="price">$' . number_format($price, 4) . '/g</p>';

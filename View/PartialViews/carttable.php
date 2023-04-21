@@ -11,7 +11,7 @@
                 <td><?php echo number_format($product->getPrice(), 4) ?>$/g</td>
                 <td><?php echo number_format($subtotal,2) ?>$</td>
                 <td>
-                    <form method="post">
+                    <form method="post" action="../Controller/cartController">
                         <input type="hidden" name="product_id" value="<?php echo $product_id ?>">
                         <button class="del" type="submit" name="remove-from-cart">✕</button>
                     </form>
